@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="SCOTT" EntityNamespace="CrmDemoContext" ContextNamespace="CrmDemoContext" Class="CrmDemoDataContext" FilePerClass="false" Provider="Devart.Data.Oracle.Linq.Provider.OracleDataProvider, Devart.Data.Oracle.Linq" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="ConnectionString" ConnectionString="User Id=SCOTT;Password=tiger;Server=rufiano;Direct=True;Sid=desarrollo;Persist Security Info=True" Provider="Devart.Data.Oracle" />
+  <Table Name="SCOTT.&quot;Company&quot;" Member="Companies">
+    <Type Name="Company">
+      <Column Name="&quot;CompanyID&quot;" Member="Companyid" Type="System.Double" DbType="NUMBER(11) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="&quot;CompanyName&quot;" Member="Companyname" Type="System.String" DbType="VARCHAR2(40) NOT NULL" CanBeNull="false" />
+      <Column Name="&quot;PrimaryContact&quot;" Member="Primarycontact" Type="System.Double" DbType="NUMBER(11)" CanBeNull="true" />
+      <Column Name="&quot;Web&quot;" Member="Web" Type="System.String" DbType="VARCHAR2(100)" CanBeNull="true" />
+      <Column Name="&quot;Email&quot;" Member="Email" Type="System.String" DbType="VARCHAR2(50)" CanBeNull="true" />
+      <Column Name="&quot;AddressTitle&quot;" Member="Addresstitle" Type="System.String" DbType="VARCHAR2(120)" CanBeNull="true" />
+      <Column Name="&quot;Address&quot;" Member="Address" Type="System.String" DbType="VARCHAR2(60)" CanBeNull="true" />
+      <Column Name="&quot;City&quot;" Member="City" Type="System.String" DbType="VARCHAR2(30)" CanBeNull="true" />
+      <Column Name="&quot;Region&quot;" Member="Region" Type="System.String" DbType="VARCHAR2(20)" CanBeNull="true" />
+      <Column Name="&quot;PostalCode&quot;" Member="Postalcode" Type="System.String" DbType="VARCHAR2(15)" CanBeNull="true" />
+      <Column Name="&quot;Country&quot;" Member="Country" Type="System.String" DbType="VARCHAR2(20)" CanBeNull="true" />
+      <Column Name="&quot;Phone&quot;" Member="Phone" Type="System.String" DbType="VARCHAR2(25)" CanBeNull="true" />
+      <Column Name="&quot;Fax&quot;" Member="Fax" Type="System.String" DbType="VARCHAR2(25)" CanBeNull="true" />
+      <Association Name="Company_Order" Member="Orders" ThisKey="Companyid" OtherKey="Shipcompanyid" Type="Order" />
+      <Association Name="Company_Order1" Member="Orders1" ThisKey="Companyid" OtherKey="Companyid" Type="Order" />
+      <Association Name="Personcontact_Company" Member="Personcontact" ThisKey="Primarycontact" OtherKey="Contactid" Type="Personcontact" IsForeignKey="true" />
+      <Association Name="Company_Personcontact" Member="Personcontacts" ThisKey="Companyid" OtherKey="Companyid" Type="Personcontact" />
+    </Type>
+  </Table>
+  <Table Name="SCOTT.&quot;Order Details&quot;" Member="OrderDetails">
+    <Type Name="OrderDetail">
+      <Column Name="&quot;OrderID&quot;" Member="Orderid" Type="System.Double" DbType="NUMBER(11) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="&quot;ProductID&quot;" Member="Productid" Type="System.Double" DbType="NUMBER(11) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="&quot;Price&quot;" Member="Price" Type="System.Double" DbType="NUMBER(10,2)" CanBeNull="true" />
+      <Column Name="&quot;Quantity&quot;" Member="Quantity" Type="System.Double" DbType="NUMBER(10,4)" CanBeNull="true" />
+      <Association Name="Order_OrderDetail" Member="Order" ThisKey="Orderid" OtherKey="Orderid" Type="Order" IsForeignKey="true" />
+      <Association Name="Product_OrderDetail" Member="Product" ThisKey="Productid" OtherKey="Productid" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="SCOTT.&quot;Orders&quot;" Member="Orders">
+    <Type Name="Order">
+      <Column Name="&quot;OrderID&quot;" Member="Orderid" Type="System.Double" DbType="NUMBER(11) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="&quot;CompanyID&quot;" Member="Companyid" Type="System.Double" DbType="NUMBER(11)" CanBeNull="true" />
+      <Column Name="&quot;ContactID&quot;" Member="Contactid" Type="System.Double" DbType="NUMBER(11)" CanBeNull="true" />
+      <Column Name="&quot;OrderDate&quot;" Member="Orderdate" Type="System.DateTime" DbType="DATE NOT NULL" CanBeNull="false" />
+      <Column Name="&quot;Freight&quot;" Member="Freight" Type="System.Double" DbType="NUMBER(10,2)" CanBeNull="true" />
+      <Column Name="&quot;ShipDate&quot;" Member="Shipdate" Type="System.DateTime" DbType="DATE" CanBeNull="true" />
+      <Column Name="&quot;ShipCompanyID&quot;" Member="Shipcompanyid" Type="System.Double" DbType="NUMBER(11)" CanBeNull="true" />
+      <Column Name="&quot;Discount&quot;" Member="Discount" Type="System.Double" DbType="NUMBER(10,2)" CanBeNull="true" />
+      <Association Name="Order_OrderDetail" Member="OrderDetails" ThisKey="Orderid" OtherKey="Orderid" Type="OrderDetail" />
+      <Association Name="Company_Order" Member="Company" ThisKey="Shipcompanyid" OtherKey="Companyid" Type="Company" IsForeignKey="true" />
+      <Association Name="Company_Order1" Member="Company1" ThisKey="Companyid" OtherKey="Companyid" Type="Company" IsForeignKey="true" />
+      <Association Name="Personcontact_Order" Member="Personcontact" ThisKey="Contactid" OtherKey="Contactid" Type="Personcontact" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="SCOTT.&quot;PersonContact&quot;" Member="Personcontacts">
+    <Type Name="Personcontact">
+      <Column Name="&quot;ContactID&quot;" Member="Contactid" Type="System.Double" DbType="NUMBER(11) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="&quot;Title&quot;" Member="Title" Type="System.String" DbType="VARCHAR2(8)" CanBeNull="true" />
+      <Column Name="&quot;FirstName&quot;" Member="Firstname" Type="System.String" DbType="VARCHAR2(50)" CanBeNull="true" />
+      <Column Name="&quot;MiddleName&quot;" Member="Middlename" Type="System.String" DbType="VARCHAR2(50)" CanBeNull="true" />
+      <Column Name="&quot;LastName&quot;" Member="Lastname" Type="System.String" DbType="VARCHAR2(50)" CanBeNull="true" />
+      <Column Name="&quot;CompanyID&quot;" Member="Companyid" Type="System.Double" DbType="NUMBER(11)" CanBeNull="true" />
+      <Column Name="&quot;HomePhone&quot;" Member="Homephone" Type="System.String" DbType="VARCHAR2(25)" CanBeNull="true" />
+      <Column Name="&quot;MobilePhone&quot;" Member="Mobilephone" Type="System.String" DbType="VARCHAR2(25)" CanBeNull="true" />
+      <Column Name="&quot;AddressTitle&quot;" Member="Addresstitle" Type="System.String" DbType="VARCHAR2(120)" CanBeNull="true" />
+      <Column Name="&quot;Address&quot;" Member="Address" Type="System.String" DbType="VARCHAR2(60)" CanBeNull="true" />
+      <Column Name="&quot;City&quot;" Member="City" Type="System.String" DbType="VARCHAR2(30)" CanBeNull="true" />
+      <Column Name="&quot;Region&quot;" Member="Region" Type="System.String" DbType="VARCHAR2(20)" CanBeNull="true" />
+      <Column Name="&quot;PostalCode&quot;" Member="Postalcode" Type="System.String" DbType="VARCHAR2(15)" CanBeNull="true" />
+      <Column Name="&quot;Country&quot;" Member="Country" Type="System.String" DbType="VARCHAR2(20)" CanBeNull="true" />
+      <Column Name="&quot;Phone&quot;" Member="Phone" Type="System.String" DbType="VARCHAR2(25)" CanBeNull="true" />
+      <Column Name="&quot;Fax&quot;" Member="Fax" Type="System.String" DbType="VARCHAR2(25)" CanBeNull="true" />
+      <Association Name="Personcontact_Company" Member="Companies" ThisKey="Contactid" OtherKey="Primarycontact" Type="Company" />
+      <Association Name="Personcontact_Order" Member="Orders" ThisKey="Contactid" OtherKey="Contactid" Type="Order" />
+      <Association Name="Company_Personcontact" Member="Company" ThisKey="Companyid" OtherKey="Companyid" Type="Company" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="SCOTT.&quot;ProductCategories&quot;" Member="Productcategories">
+    <Type Name="Productcategory">
+      <Column Name="&quot;CategoryID&quot;" Member="Categoryid" Type="System.Double" DbType="NUMBER(11) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="&quot;CategoryName&quot;" Member="Categoryname" Type="System.String" DbType="VARCHAR2(20)" CanBeNull="true" />
+      <Column Name="&quot;ParentCategory&quot;" Member="Parentcategory" Type="System.Double" DbType="NUMBER(11)" CanBeNull="true" />
+      <Association Name="Productcategory_Product" Member="Products" ThisKey="Categoryid" OtherKey="Categoryid" Type="Product" />
+    </Type>
+  </Table>
+  <Table Name="SCOTT.&quot;Products&quot;" Member="Products">
+    <Type Name="Product">
+      <Column Name="&quot;ProductID&quot;" Member="Productid" Type="System.Double" DbType="NUMBER(11) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="&quot;ProductName&quot;" Member="Productname" Type="System.String" DbType="VARCHAR2(50) NOT NULL" CanBeNull="false" />
+      <Column Name="&quot;CategoryID&quot;" Member="Categoryid" Type="System.Double" DbType="NUMBER(11)" CanBeNull="true" />
+      <Column Name="&quot;UnitName&quot;" Member="Unitname" Type="System.String" DbType="VARCHAR2(20)" CanBeNull="true" />
+      <Column Name="&quot;UnitScale&quot;" Member="Unitscale" Type="System.Int32" DbType="NUMBER(5)" CanBeNull="true" />
+      <Column Name="&quot;InStock&quot;" Member="Instock" Type="System.Double" DbType="NUMBER(11)" CanBeNull="true" />
+      <Column Name="&quot;Price&quot;" Member="Price" Type="System.Double" DbType="NUMBER(10,2)" CanBeNull="true" />
+      <Column Name="&quot;DiscontinuedPrice&quot;" Member="Discontinuedprice" Type="System.Double" DbType="NUMBER(10,2)" CanBeNull="true" />
+      <Association Name="Product_OrderDetail" Member="OrderDetails" ThisKey="Productid" OtherKey="Productid" Type="OrderDetail" />
+      <Association Name="Productcategory_Product" Member="Productcategory" ThisKey="Categoryid" OtherKey="Categoryid" Type="Productcategory" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
